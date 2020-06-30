@@ -1,0 +1,52 @@
+{
+    "name": "Controls",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "ca8010f3-b3ff-4af6-8281-0eb418bc13db",
+            "actions": [
+                {
+                    "name": "Left Click",
+                    "type": "Button",
+                    "id": "4ea7d680-2953-49a5-9f07-6671bc68ee5d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Right Click",
+                    "type": "Button",
+                    "id": "0e7caf52-2c35-4639-8d3f-7b4eb5d6fe52",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9a3b21f0-1aa8-4348-80ea-4cc9d6c228c0",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ce5de7a7-e824-4d09-b7b5-59ccfcb7769c",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
