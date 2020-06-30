@@ -25,18 +25,7 @@ public class MovementComponent : MonoBehaviour
 
 	public void MoveToCursorPosition()
 	{
-		Vector3 PointToMove = -Vector3.one;
-
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-		RaycastHit hit;
-
-		if (Physics.Raycast(ray, out hit))
-		{
-			PointToMove = hit.point;
-		}
-
-		_agent.SetDestination(PointToMove);
+		_agent.SetDestination(MainCamera.Instance.MousePositionInWorldSpace);
 
 		_character.Animation.SetRunning(true);
 	}
