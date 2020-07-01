@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.HighDefinition;
+using UnityEngine.EventSystems;
 
 public class CursorHandler : MonoBehaviour
 {
@@ -9,8 +10,12 @@ public class CursorHandler : MonoBehaviour
 
     [SerializeField] private DecalProjector SelectionCircle;
 
-	private void Awake()
+    public bool isOverUI { get { return EventSystem.current.IsPointerOverGameObject(); } private set { } }
+
+    private void Awake()
 	{
+        Instance = this;
+
         SetDefault();
 	}
 

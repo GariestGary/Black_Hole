@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
@@ -12,21 +13,36 @@ public class MovementComponent : MonoBehaviour
 	private NavMeshAgent _agent;
 	private Character _character;
 
+	public bool Running { get; private set; }
+
+	public event Action ReachedDestination = delegate { };
+
 	private void Awake()
 	{
 		_agent = GetComponent<NavMeshAgent>();
 		_character = GetComponent<Character>();
 
-		Observable.EveryUpdate().Where(_ => (_agent.remainingDistance <= _agent.stoppingDistance) && (!_agent.hasPath || _agent.velocity.sqrMagnitude == 0f)).Subscribe(_ =>
+		Observable.EveryUpdate().Where(_ => _agent.isOnNavMesh && (_agent.remainingDistance <= _agent.stoppingDistance) && (!_agent.hasPath || _agent.velocity.sqrMagnitude == 0f)).Subscribe(_ =>
 		{
-			_character.Animation.SetRunning(false);
+			if (Running)
+			{
+				ReachedDestination();
+			}
+
+			Running = false;
+			_character.Animation.SetRunning(Running);
 		});
 	}
 
 	public void MoveToCursorPosition()
 	{
 		_agent.SetDestination(MainCamera.Instance.MousePositionInWorldSpace);
+		Running = true;
+		_character.Animation.SetRunning(Running);
+	}
 
-		_character.Animation.SetRunning(true);
+	public void Stop()
+	{
+		_agent.SetDestination(transform.position);
 	}
 }

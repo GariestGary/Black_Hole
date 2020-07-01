@@ -16,7 +16,8 @@ public class InputManager : MonoBehaviour
 
 	public void InitializeControls()
 	{
-		_controls.Player.LeftClick.performed += _ => GameManager.Instance.Player.Movement.MoveToCursorPosition();
+		_controls.Player.LeftClick.performed += _ => GameManager.Instance.Player.LeftClick();
+		_controls.Player.RightClick.performed += _ => GameManager.Instance.Player.RightClick();
 	}
 
 	private void OnEnable()

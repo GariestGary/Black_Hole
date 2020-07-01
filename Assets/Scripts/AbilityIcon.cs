@@ -15,5 +15,6 @@ public class AbilityIcon : MonoBehaviour, IPointerClickHandler
 	public void OnPointerClick(PointerEventData eventData)
 	{
 		GameManager.Instance.Player.SetAbility(_ability);
+		CursorHandler.Instance.SetCircle(_ability.Radius);
 	}
 }

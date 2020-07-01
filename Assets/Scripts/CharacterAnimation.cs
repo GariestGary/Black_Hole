@@ -10,4 +10,15 @@ public class CharacterAnimation : MonoBehaviour
 	{
 		_animator.SetBool("Running", state);
 	}
+
+	public void SetCasting(bool state)
+	{
+		_animator.SetBool("Casting", state);
+	}
+
+	public void SetStunned(bool state)
+	{
+		_animator.SetBool("Stunned", state);
+	}
+
 }
