@@ -62,17 +62,19 @@ public class Character : MonoBehaviour
 
 	public void LeftClick()
 	{
-		_lastClickedPosition = MainCamera.Instance.MousePositionInWorldSpace;
-
 		if (CursorHandler.Instance.isOverUI || _casting || _stunned)
 		{
 			return;
 		}
 
-		if(_abilityInQueue)
+		if (_abilityInQueue)
 		{
 			_abilityInQueue = false;
-			DisposeCheck(_distanceCheck);
+			GameManager.Dispose(_distanceCheck);
+		}
+		else
+		{
+			_lastClickedPosition = MainCamera.Instance.MousePositionInWorldSpace;
 		}
 
 		if (_ability != null)
@@ -83,12 +85,11 @@ public class Character : MonoBehaviour
 				_ability.UseAbility(_lastClickedPosition);
 				_ability = null;
 				CursorHandler.Instance.SetDefault();
-				return;
 			}
 			else
 			{
-				Movement.MoveToCursorPosition();
-				
+				Movement.Move(MainCamera.Instance.MousePositionInWorldSpace);
+
 				_abilityInQueue = true;
 
 				_distanceCheck = Observable.EveryUpdate().Where(_ => IsPlayerInAbilityRadius()).Subscribe(_ => 
@@ -96,22 +97,10 @@ public class Character : MonoBehaviour
 					LeftClick();
 				});
 			}
-
-		}
-
-		Movement.MoveToCursorPosition();
-	}
-
-	private void DisposeCheck(IDisposable d)
-	{
-		if (d == null)
-		{
 			return;
 		}
-		else
-		{
-			d.Dispose();
-		}
+
+		Movement.Move(MainCamera.Instance.MousePositionInWorldSpace);
 	}
 
 	public void RightClick()
@@ -124,7 +113,7 @@ public class Character : MonoBehaviour
 		CursorHandler.Instance.SetDefault();
 		_ability = null;
 		_abilityInQueue = false;
-		DisposeCheck(_distanceCheck);
+		GameManager.Dispose(_distanceCheck);
 	}
 
 	private bool IsPlayerInAbilityRadius()

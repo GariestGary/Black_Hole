@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,5 +33,17 @@ public class GameManager : MonoBehaviour
 
 		MainCamera.Instance.CameraInitialize();
 		inputManager.InitializeControls();
+	}
+
+	public static void Dispose(IDisposable obj)
+	{
+		if (obj == null)
+		{
+			return;
+		}
+		else
+		{
+			obj.Dispose();
+		}
 	}
 }

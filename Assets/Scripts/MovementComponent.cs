@@ -34,9 +34,9 @@ public class MovementComponent : MonoBehaviour
 		});
 	}
 
-	public void MoveToCursorPosition()
+	public void Move(Vector3 position)
 	{
-		_agent.SetDestination(MainCamera.Instance.MousePositionInWorldSpace);
+		_agent.SetDestination(position);
 		Running = true;
 		_character.Animation.SetRunning(Running);
 	}

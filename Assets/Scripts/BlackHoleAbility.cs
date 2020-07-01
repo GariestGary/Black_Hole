@@ -26,11 +26,14 @@ public class BlackHoleAbility : MonoBehaviour, IAbility
 	}
 	public void Break()
 	{
+        GameManager.Instance.Player.SetAbility(null);
         StartCoroutine(EffectDestroyDelay(0));
+        CursorHandler.Instance.SetDefault();
     }
 
 	public void OnAbilitySelected()
 	{
+        GameManager.Instance.Player.SetAbility(this);
         CursorHandler.Instance.SetCircle(_radius);
 	}
 
@@ -69,7 +72,11 @@ public class BlackHoleAbility : MonoBehaviour, IAbility
 		}
         _tweens.Clear();
 
-        Destroy(_effect);
+        if (_effect != null)
+        {
+            Destroy(_effect);
+        }
+        
         GameManager.Instance.Player.SetCast(false);
 
 		for (int i = 0; i < _affectedCharacters.Count; i++)
